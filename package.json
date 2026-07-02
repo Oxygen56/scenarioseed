@@ -23,7 +23,7 @@
     "build": "tsc -p tsconfig.json",
     "demo": "tsx src/cli.ts generate examples/saas/schema.prisma --scenario \"SaaS billing edge cases\" --out tmp/saas",
     "dev": "tsx src/cli.ts",
-    "prepack": "npm run build",
+    "prepare": "npm run build",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },

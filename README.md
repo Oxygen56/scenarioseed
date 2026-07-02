@@ -34,6 +34,16 @@ That makes it useful for:
 
 ## Quick Start
 
+Run directly from GitHub:
+
+```bash
+npx --yes github:Oxygen56/scenarioseed generate prisma/schema.prisma \
+  --scenario "SaaS billing edge cases" \
+  --out ./scenarioseed
+```
+
+After the npm package is published, the shorter command is:
+
 ```bash
 npx scenarioseed generate prisma/schema.prisma \
   --scenario "SaaS billing edge cases" \
