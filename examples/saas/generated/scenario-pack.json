@@ -1,0 +1,312 @@
+{
+  "name": "SaaS Billing Edge Cases",
+  "domain": "saas",
+  "source": {
+    "schema": "examples/saas/schema.prisma",
+    "requestedScenario": "SaaS billing edge cases"
+  },
+  "scenarios": [
+    {
+      "key": "trial_expiring",
+      "title": "Trial Expiring",
+      "story": "A self-serve customer is close to the end of trial and has not converted yet. Requested focus: SaaS billing edge cases."
+    },
+    {
+      "key": "past_due_enterprise",
+      "title": "Past-Due Enterprise",
+      "story": "A high-value account has a failed invoice and should be blocked from expansion."
+    },
+    {
+      "key": "usage_over_quota",
+      "title": "Usage Over Quota",
+      "story": "An active workspace exceeded its plan limit and should see upgrade pressure."
+    },
+    {
+      "key": "canceled_winback",
+      "title": "Canceled Winback",
+      "story": "A canceled account still has historical value and is eligible for a winback flow."
+    }
+  ],
+  "records": [
+    {
+      "scenario": "trial_expiring",
+      "model": "Organization",
+      "data": {
+        "id": "organiza_000001oyhge8",
+        "name": "Trial Expiring Organization",
+        "slug": "trial-expiring-organization",
+        "planName": "pro",
+        "seatLimit": 5,
+        "usageLimit": 1000,
+        "billingEmail": "trial-expiring.organization@scenarioseed.dev",
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "trial_expiring",
+      "model": "Member",
+      "data": {
+        "organizationId": "organiza_000001oyhge8",
+        "id": "member_000000irjm7b",
+        "email": "trial-expiring.member@scenarioseed.dev",
+        "name": "Jordan Trial Expiring",
+        "role": "OWNER",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "trial_expiring",
+      "model": "Subscription",
+      "data": {
+        "organizationId": "organiza_000001oyhge8",
+        "id": "subscrip_000001c3js4i",
+        "status": "TRIALING",
+        "planName": "pro",
+        "trialEndsAt": "2026-01-17T12:00:00.000Z",
+        "currentPeriodEnd": "2026-01-17T12:00:00.000Z",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "trial_expiring",
+      "model": "Invoice",
+      "data": {
+        "organizationId": "organiza_000001oyhge8",
+        "id": "invoice_000001x66cv0",
+        "status": "OPEN",
+        "amountCents": 9900,
+        "currency": "USD",
+        "dueAt": "2026-01-29T12:00:00.000Z",
+        "externalId": "ext_000000276qgb",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "trial_expiring",
+      "model": "UsageEvent",
+      "data": {
+        "organizationId": "organiza_000001oyhge8",
+        "id": "usageeve_000000snzaaa",
+        "metric": "Metric for Trial Expiring",
+        "quantity": 3,
+        "occurredAt": "2026-01-28T12:00:00.000Z",
+        "metadata": {
+          "scenario": "trial_expiring",
+          "generatedBy": "scenarioseed",
+          "note": "A self-serve customer is close to the end of trial and has not converted yet. Requested focus: SaaS billing edge cases."
+        }
+      }
+    },
+    {
+      "scenario": "past_due_enterprise",
+      "model": "Organization",
+      "data": {
+        "id": "organiza_000001m5uyd2",
+        "name": "Past Due Enterprise Organization",
+        "slug": "past-due-enterprise-organization",
+        "planName": "enterprise",
+        "seatLimit": 75,
+        "usageLimit": 1000,
+        "billingEmail": "past-due-enterprise.organization@scenarioseed.dev",
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "past_due_enterprise",
+      "model": "Member",
+      "data": {
+        "organizationId": "organiza_000001m5uyd2",
+        "id": "member_000001nem6y1",
+        "email": "past-due-enterprise.member@scenarioseed.dev",
+        "name": "Casey Past Due Enterprise",
+        "role": "OWNER",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "past_due_enterprise",
+      "model": "Subscription",
+      "data": {
+        "organizationId": "organiza_000001m5uyd2",
+        "id": "subscrip_000000mb8is0",
+        "status": "PAST_DUE",
+        "planName": "enterprise",
+        "currentPeriodEnd": "2026-02-14T12:00:00.000Z",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "past_due_enterprise",
+      "model": "Invoice",
+      "data": {
+        "organizationId": "organiza_000001m5uyd2",
+        "id": "invoice_000001lw3d0i",
+        "status": "PAST_DUE",
+        "amountCents": 49900,
+        "currency": "USD",
+        "dueAt": "2026-01-07T12:00:00.000Z",
+        "externalId": "ext_00000174cy9l",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "past_due_enterprise",
+      "model": "UsageEvent",
+      "data": {
+        "organizationId": "organiza_000001m5uyd2",
+        "id": "usageeve_000000a6mgvw",
+        "metric": "Metric for Past-Due Enterprise",
+        "quantity": 3,
+        "occurredAt": "2026-01-26T12:00:00.000Z",
+        "metadata": {
+          "scenario": "past_due_enterprise",
+          "generatedBy": "scenarioseed",
+          "note": "A high-value account has a failed invoice and should be blocked from expansion."
+        }
+      }
+    },
+    {
+      "scenario": "usage_over_quota",
+      "model": "Organization",
+      "data": {
+        "id": "organiza_000000r3t4os",
+        "name": "Usage Over Quota Organization",
+        "slug": "usage-over-quota-organization",
+        "planName": "pro",
+        "seatLimit": 5,
+        "usageLimit": 1000,
+        "billingEmail": "usage-over-quota.organization@scenarioseed.dev",
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "usage_over_quota",
+      "model": "Member",
+      "data": {
+        "organizationId": "organiza_000000r3t4os",
+        "id": "member_000000e1j0oj",
+        "email": "usage-over-quota.member@scenarioseed.dev",
+        "name": "Jordan Usage Over Quota",
+        "role": "OWNER",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "usage_over_quota",
+      "model": "Subscription",
+      "data": {
+        "organizationId": "organiza_000000r3t4os",
+        "id": "subscrip_000000fy3kha",
+        "status": "ACTIVE",
+        "planName": "pro",
+        "currentPeriodEnd": "2026-02-14T12:00:00.000Z",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "usage_over_quota",
+      "model": "Invoice",
+      "data": {
+        "organizationId": "organiza_000000r3t4os",
+        "id": "invoice_00000140o9j4",
+        "status": "OPEN",
+        "amountCents": 9900,
+        "currency": "USD",
+        "dueAt": "2026-01-29T12:00:00.000Z",
+        "externalId": "ext_000000ermzbb",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "usage_over_quota",
+      "model": "UsageEvent",
+      "data": {
+        "organizationId": "organiza_000000r3t4os",
+        "id": "usageeve_000001nwylcu",
+        "metric": "Metric for Usage Over Quota",
+        "quantity": 1200,
+        "occurredAt": "2026-02-01T12:00:00.000Z",
+        "metadata": {
+          "scenario": "usage_over_quota",
+          "generatedBy": "scenarioseed",
+          "note": "An active workspace exceeded its plan limit and should see upgrade pressure."
+        }
+      }
+    },
+    {
+      "scenario": "canceled_winback",
+      "model": "Organization",
+      "data": {
+        "id": "organiza_000000p7ilec",
+        "name": "Canceled Winback Organization",
+        "slug": "canceled-winback-organization",
+        "planName": "pro",
+        "seatLimit": 5,
+        "usageLimit": 1000,
+        "billingEmail": "canceled-winback.organization@scenarioseed.dev",
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "canceled_winback",
+      "model": "Member",
+      "data": {
+        "organizationId": "organiza_000000p7ilec",
+        "id": "member_000000siieor",
+        "email": "canceled-winback.member@scenarioseed.dev",
+        "name": "Jordan Canceled Winback",
+        "role": "OWNER",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "canceled_winback",
+      "model": "Subscription",
+      "data": {
+        "organizationId": "organiza_000000p7ilec",
+        "id": "subscrip_000000hspnfa",
+        "status": "CANCELED",
+        "planName": "pro",
+        "canceledAt": "2025-12-26T12:00:00.000Z",
+        "cancelReason": "A canceled account still has historical value and is eligible for a winback flow.",
+        "currentPeriodEnd": "2026-02-14T12:00:00.000Z",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "canceled_winback",
+      "model": "Invoice",
+      "data": {
+        "organizationId": "organiza_000000p7ilec",
+        "id": "invoice_0000010ak3ug",
+        "status": "DRAFT",
+        "amountCents": 9900,
+        "currency": "USD",
+        "dueAt": "2026-01-29T12:00:00.000Z",
+        "externalId": "ext_000001dw2wi7",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "canceled_winback",
+      "model": "UsageEvent",
+      "data": {
+        "organizationId": "organiza_000000p7ilec",
+        "id": "usageeve_0000014ayv12",
+        "metric": "Metric for Canceled Winback",
+        "quantity": 3,
+        "occurredAt": "2026-01-16T12:00:00.000Z",
+        "metadata": {
+          "scenario": "canceled_winback",
+          "generatedBy": "scenarioseed",
+          "note": "A canceled account still has historical value and is eligible for a winback flow."
+        }
+      }
+    }
+  ],
+  "warnings": []
+}

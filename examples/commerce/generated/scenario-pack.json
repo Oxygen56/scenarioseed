@@ -1,0 +1,352 @@
+{
+  "name": "Commerce Fulfillment Failures",
+  "domain": "commerce",
+  "source": {
+    "schema": "examples/commerce/schema.prisma",
+    "requestedScenario": "commerce fulfillment failures"
+  },
+  "scenarios": [
+    {
+      "key": "abandoned_cart",
+      "title": "Abandoned Cart",
+      "story": "A known customer added products to cart but did not complete checkout. Requested focus: commerce fulfillment failures."
+    },
+    {
+      "key": "payment_failed",
+      "title": "Payment Failed",
+      "story": "An order failed during payment and should keep inventory reserved briefly."
+    },
+    {
+      "key": "refunded_order",
+      "title": "Refunded Order",
+      "story": "A paid order has been refunded and needs support, inventory, and finance views to agree."
+    },
+    {
+      "key": "delayed_shipment",
+      "title": "Delayed Shipment",
+      "story": "A shipment is late enough to trigger customer-facing delivery messaging."
+    }
+  ],
+  "records": [
+    {
+      "scenario": "abandoned_cart",
+      "model": "Customer",
+      "data": {
+        "id": "customer_000001gj5ron",
+        "email": "abandoned-cart.customer@scenarioseed.dev",
+        "name": "Jordan Abandoned Cart",
+        "phone": "+14155550126",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "Product",
+      "data": {
+        "id": "product_0000013ysnxa",
+        "sku": "Sku for Abandoned Cart",
+        "name": "Abandoned Cart Toolkit",
+        "description": "A known customer added products to cart but did not complete checkout. Requested focus: commerce fulfillment failures.",
+        "priceCents": 9900,
+        "inventory": 37
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "Cart",
+      "data": {
+        "customerId": "customer_000001gj5ron",
+        "id": "cart_000000umf44t",
+        "status": "ABANDONED_CART",
+        "totalCents": 9900,
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "CartItem",
+      "data": {
+        "cartId": "cart_000000umf44t",
+        "productId": "product_0000013ysnxa",
+        "id": "cartitem_000000xceywk",
+        "quantity": 3
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "Order",
+      "data": {
+        "customerId": "customer_000001gj5ron",
+        "id": "order_000001ffk7pb",
+        "status": "DRAFT",
+        "totalCents": 9900,
+        "currency": "USD",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "OrderItem",
+      "data": {
+        "orderId": "order_000001ffk7pb",
+        "productId": "product_0000013ysnxa",
+        "id": "orderite_000000ldqw92",
+        "quantity": 3,
+        "unitPriceCents": 9900
+      }
+    },
+    {
+      "scenario": "abandoned_cart",
+      "model": "Shipment",
+      "data": {
+        "orderId": "order_000001ffk7pb",
+        "id": "shipment_000000u0xmc1",
+        "status": "PENDING",
+        "carrier": "Carrier for Abandoned Cart",
+        "trackingCode": "abandoned-cart-shipment"
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "Customer",
+      "data": {
+        "id": "customer_0000013qywqi",
+        "email": "payment-failed.customer@scenarioseed.dev",
+        "name": "Avery Payment Failed",
+        "phone": "+14155550126",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "Product",
+      "data": {
+        "id": "product_000001rc26x9",
+        "sku": "Sku for Payment Failed",
+        "name": "Payment Failed Toolkit",
+        "description": "An order failed during payment and should keep inventory reserved briefly.",
+        "priceCents": 9900,
+        "inventory": 38
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "Cart",
+      "data": {
+        "customerId": "customer_0000013qywqi",
+        "id": "cart_00000180clk8",
+        "status": "PAYMENT_FAILED",
+        "totalCents": 9900,
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "CartItem",
+      "data": {
+        "cartId": "cart_00000180clk8",
+        "productId": "product_000001rc26x9",
+        "id": "cartitem_000001mvl4ll",
+        "quantity": 3
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "Order",
+      "data": {
+        "customerId": "customer_0000013qywqi",
+        "id": "order_000000mzc208",
+        "status": "PAYMENT_FAILED",
+        "totalCents": 9900,
+        "currency": "USD",
+        "failureReason": "An order failed during payment and should keep inventory reserved briefly.",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "OrderItem",
+      "data": {
+        "orderId": "order_000000mzc208",
+        "productId": "product_000001rc26x9",
+        "id": "orderite_0000015z68w9",
+        "quantity": 3,
+        "unitPriceCents": 9900
+      }
+    },
+    {
+      "scenario": "payment_failed",
+      "model": "Shipment",
+      "data": {
+        "orderId": "order_000000mzc208",
+        "id": "shipment_000001ck1jj8",
+        "status": "PENDING",
+        "carrier": "Carrier for Payment Failed",
+        "trackingCode": "payment-failed-shipment"
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "Customer",
+      "data": {
+        "id": "customer_000000ur80lg",
+        "email": "refunded-order.customer@scenarioseed.dev",
+        "name": "Riley Refunded Order",
+        "phone": "+14155550126",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "Product",
+      "data": {
+        "id": "product_0000000g640n",
+        "sku": "Sku for Refunded Order",
+        "name": "Refunded Order Toolkit",
+        "description": "A paid order has been refunded and needs support, inventory, and finance views to agree.",
+        "priceCents": 9900,
+        "inventory": 40
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "Cart",
+      "data": {
+        "customerId": "customer_000000ur80lg",
+        "id": "cart_000000f1i3ze",
+        "status": "REFUNDED_ORDER",
+        "totalCents": 9900,
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "CartItem",
+      "data": {
+        "cartId": "cart_000000f1i3ze",
+        "productId": "product_0000000g640n",
+        "id": "cartitem_000000gt008j",
+        "quantity": 3
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "Order",
+      "data": {
+        "customerId": "customer_000000ur80lg",
+        "id": "order_000001jap8de",
+        "status": "REFUNDED",
+        "totalCents": 9900,
+        "currency": "USD",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "OrderItem",
+      "data": {
+        "orderId": "order_000001jap8de",
+        "productId": "product_0000000g640n",
+        "id": "orderite_000000k36dqj",
+        "quantity": 3,
+        "unitPriceCents": 9900
+      }
+    },
+    {
+      "scenario": "refunded_order",
+      "model": "Shipment",
+      "data": {
+        "orderId": "order_000001jap8de",
+        "id": "shipment_000000tk4p7i",
+        "status": "PENDING",
+        "carrier": "Carrier for Refunded Order",
+        "trackingCode": "refunded-order-shipment",
+        "shippedAt": "2026-01-18T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "Customer",
+      "data": {
+        "id": "customer_0000016ieb79",
+        "email": "delayed-shipment.customer@scenarioseed.dev",
+        "name": "Casey Delayed Shipment",
+        "phone": "+14155550126",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "Product",
+      "data": {
+        "id": "product_000000lw87v8",
+        "sku": "Sku for Delayed Shipment",
+        "name": "Delayed Shipment Toolkit",
+        "description": "A shipment is late enough to trigger customer-facing delivery messaging.",
+        "priceCents": 9900,
+        "inventory": 23
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "Cart",
+      "data": {
+        "customerId": "customer_0000016ieb79",
+        "id": "cart_000001xg0j7v",
+        "status": "DELAYED_SHIPMENT",
+        "totalCents": 9900,
+        "createdAt": "2025-12-01T12:00:00.000Z",
+        "updatedAt": "2026-01-13T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "CartItem",
+      "data": {
+        "cartId": "cart_000001xg0j7v",
+        "productId": "product_000000lw87v8",
+        "id": "cartitem_0000015dxlui",
+        "quantity": 3
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "Order",
+      "data": {
+        "customerId": "customer_0000016ieb79",
+        "id": "order_0000010dywn1",
+        "status": "SHIPPED",
+        "totalCents": 9900,
+        "currency": "USD",
+        "createdAt": "2025-12-01T12:00:00.000Z"
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "OrderItem",
+      "data": {
+        "orderId": "order_0000010dywn1",
+        "productId": "product_000000lw87v8",
+        "id": "orderite_000000a89tt0",
+        "quantity": 3,
+        "unitPriceCents": 9900
+      }
+    },
+    {
+      "scenario": "delayed_shipment",
+      "model": "Shipment",
+      "data": {
+        "orderId": "order_0000010dywn1",
+        "id": "shipment_000000j1l9y7",
+        "status": "DELAYED",
+        "carrier": "Carrier for Delayed Shipment",
+        "trackingCode": "delayed-shipment-shipment",
+        "shippedAt": "2026-01-25T12:00:00.000Z"
+      }
+    }
+  ],
+  "warnings": []
+}

@@ -1,0 +1,29 @@
+name: Bug report
+description: Report incorrect parsing, generation, or CLI behavior.
+title: "Bug: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: schema
+    attributes:
+      label: Minimal Prisma schema
+      description: Paste the smallest schema that reproduces the issue.
+      render: prisma
+    validations:
+      required: false
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: Paste the ScenarioSeed command you ran.
+      render: bash
+    validations:
+      required: false

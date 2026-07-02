@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  OPEN
+  PAID
+  PAST_DUE
+  VOID
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+model Organization {
+  id              String         @id @default(cuid())
+  name            String
+  slug            String         @unique
+  planName        String
+  seatLimit       Int
+  usageLimit      Int
+  billingEmail    String
+  members         Member[]
+  subscriptions   Subscription[]
+  invoices        Invoice[]
+  usageEvents     UsageEvent[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model Member {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  email          String        @unique
+  name           String
+  role           MemberRole
+  active         Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+}
+
+model Subscription {
+  id             String              @id @default(cuid())
+  organizationId String
+  organization   Organization        @relation(fields: [organizationId], references: [id])
+  status         SubscriptionStatus
+  planName       String
+  trialEndsAt    DateTime?
+  canceledAt     DateTime?
+  cancelReason   String?
+  currentPeriodEnd DateTime
+  createdAt      DateTime            @default(now())
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  status         InvoiceStatus
+  amountCents    Int
+  currency       String
+  dueAt          DateTime
+  paidAt         DateTime?
+  externalId     String?
+  createdAt      DateTime      @default(now())
+}
+
+model UsageEvent {
+  id             String        @id @default(cuid())
+  organizationId String
+  organization   Organization  @relation(fields: [organizationId], references: [id])
+  metric         String
+  quantity       Int
+  occurredAt     DateTime
+  metadata       Json?
+}

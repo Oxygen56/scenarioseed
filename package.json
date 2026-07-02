@@ -1,0 +1,48 @@
+{
+  "name": "scenarioseed",
+  "version": "0.1.0",
+  "description": "Generate scenario-first seed data from your Prisma schema.",
+  "type": "module",
+  "bin": {
+    "scenarioseed": "dist/cli.js"
+  },
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "demo": "tsx src/cli.ts generate examples/saas/schema.prisma --scenario \"SaaS billing edge cases\" --out tmp/saas",
+    "dev": "tsx src/cli.ts",
+    "prepack": "npm run build",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "prisma",
+    "seed",
+    "test-data",
+    "synthetic-data",
+    "scenario-testing",
+    "fixtures"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^4.1.9"
+  }
+}

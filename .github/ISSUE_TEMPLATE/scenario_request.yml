@@ -1,0 +1,27 @@
+name: Scenario request
+description: Request a new domain, scenario pack, or field inference rule.
+title: "Scenario: "
+labels:
+  - scenario
+body:
+  - type: input
+    id: domain
+    attributes:
+      label: Domain
+      description: SaaS, commerce, content, fintech, marketplace, healthcare, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Business state
+      description: Describe the state you want generated.
+    validations:
+      required: true
+  - type: textarea
+    id: schema-shape
+    attributes:
+      label: Common schema shape
+      description: List the models and fields this scenario usually touches.
+    validations:
+      required: false
