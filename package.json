@@ -35,6 +35,14 @@
     "scenario-testing",
     "fixtures"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oxygen56/scenarioseed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Oxygen56/scenarioseed/issues"
+  },
+  "homepage": "https://github.com/Oxygen56/scenarioseed#readme",
   "license": "MIT",
   "engines": {
     "node": ">=20"

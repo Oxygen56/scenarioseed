@@ -1,5 +1,7 @@
 # ScenarioSeed
 
+[![CI](https://github.com/Oxygen56/scenarioseed/actions/workflows/ci.yml/badge.svg)](https://github.com/Oxygen56/scenarioseed/actions/workflows/ci.yml)
+
 Scenario-first seed data for product teams.
 
 Most seed tools answer: "Can I generate 100 realistic rows for this schema?"
