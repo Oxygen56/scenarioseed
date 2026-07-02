@@ -24,7 +24,7 @@ main().catch((error: unknown) => {
 async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
 
-  if (!args.command || args.flags.help || args.flags.h) {
+  if (!args.command || args.command === "--help" || args.command === "-h" || args.flags.help || args.flags.h) {
     printHelp();
     return;
   }
