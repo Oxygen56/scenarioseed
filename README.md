@@ -1,8 +1,13 @@
 # ScenarioSeed
 
 [![CI](https://github.com/Oxygen56/scenarioseed/actions/workflows/ci.yml/badge.svg)](https://github.com/Oxygen56/scenarioseed/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/scenarioseed.svg)](https://www.npmjs.com/package/scenarioseed)
+[![npm downloads](https://img.shields.io/npm/dm/scenarioseed.svg)](https://www.npmjs.com/package/scenarioseed)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Scenario-first seed data for product teams.
+Generate business-state seed data from Prisma schemas.
+
+<img src="assets/demo.svg" alt="ScenarioSeed CLI demo" width="860">
 
 Most seed tools answer: "Can I generate 100 realistic rows for this schema?"
 
@@ -34,18 +39,18 @@ That makes it useful for:
 
 ## Quick Start
 
-Run directly from GitHub:
+Run from npm:
 
 ```bash
-npx --yes github:Oxygen56/scenarioseed generate prisma/schema.prisma \
+npx --yes scenarioseed generate prisma/schema.prisma \
   --scenario "SaaS billing edge cases" \
   --out ./scenarioseed
 ```
 
-After the npm package is published, the shorter command is:
+Or run directly from GitHub:
 
 ```bash
-npx scenarioseed generate prisma/schema.prisma \
+npx --yes github:Oxygen56/scenarioseed generate prisma/schema.prisma \
   --scenario "SaaS billing edge cases" \
   --out ./scenarioseed
 ```

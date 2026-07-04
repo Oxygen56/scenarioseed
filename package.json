@@ -1,7 +1,7 @@
 {
   "name": "scenarioseed",
-  "version": "0.1.0",
-  "description": "Generate scenario-first seed data from your Prisma schema.",
+  "version": "0.1.1",
+  "description": "Generate business-state seed data from Prisma schemas.",
   "type": "module",
   "bin": {
     "scenarioseed": "dist/cli.js"
@@ -14,6 +14,7 @@
     }
   },
   "files": [
+    "assets",
     "dist",
     "examples",
     "README.md",
@@ -33,7 +34,11 @@
     "test-data",
     "synthetic-data",
     "scenario-testing",
-    "fixtures"
+    "fixtures",
+    "prisma-seed",
+    "database-seeding",
+    "business-states",
+    "ai-agents"
   ],
   "repository": {
     "type": "git",
